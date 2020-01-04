@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #define	MAX_PATHS 100
 #define MAX_DIRECTIONS 3
 
@@ -17,6 +19,7 @@ struct adventure {
 
 void advent_init(int start_location);
 void advent_build_path(int from, int to);
+void advent_build_path(int from, int to, int direction, bool *condition);
 void advent_do_action(char *action);
 
 int advent_player_location();

@@ -1,6 +1,7 @@
 #include "advent.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 static struct adventure advent;
 
@@ -12,6 +13,11 @@ void advent_init(int start_location)
 void advent_build_path(int from, int to)
 {
 	advent.paths[from][FRONT] = to;
+}
+
+void advent_build_path(int from, int to, int direction, bool *condition)
+{
+
 }
 
 void advent_do_action(char *action)
