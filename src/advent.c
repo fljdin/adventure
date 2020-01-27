@@ -15,11 +15,6 @@ void advent_build_path(int from, int to)
 	advent.paths[from][FRONT] = to;
 }
 
-void advent_build_path(int from, int to, int direction, bool *condition)
-{
-
-}
-
 void advent_do_action(char *action)
 {
 	if (strcmp(action, "move") == 0) {
