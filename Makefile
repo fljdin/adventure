@@ -1,21 +1,37 @@
-# Makefile
+# Header
+CC = gcc
+CFLAGS = -g -Wall -Isrc
 
-CC=gcc
-CFLAGS=-Wall -g -lyaml
-EXEC=advent
+TARGET ?= bin/console
+SOURCES = $(shell find src/engine -name *.c)
+OBJECTS = $(patsubst src/%.c,build/%.o,$(SOURCES))
 
-all: build
+TESTS = $(wildcard tests/*_test.c)
+TST_TARGET = $(patsubst tests/%.c,bin/%,$(TESTS))
 
-objects:
-	cd src ; $(CC) $(CFLAGS) -c -o advent.o advent.c
+# Target build
+.PHONY: build tests
 
-build: objects
-	cd src ; $(CC) $(CFLAGS) -o ../bin/$(EXEC) $(OBJS)
+all: build $(TARGET)
 
-test: objects
-	cd src ; $(CC) $(CFLAGS) -o ../bin/advent_test \
-		advent.o advent_test.c ; \
-	../bin/advent_test
+tests: build $(TST_TARGET)
+
+$(TARGET): $(SOURCES:.c=.o)
+	$(CC) -o $@ $(OBJECTS)
+
+$(TST_TARGET): $(SOURCES:.c=.o)
+	$(CC) -c -o $(patsubst bin/%,build/%.o,$@) $(patsubst bin/%,tests/%.c,$@)
+	$(CC) -o $@ $(patsubst bin/%,build/%.o,$@) $(OBJECTS)
+
+$(SOURCES:.c=.o): %o: %c
+	$(CC) -c -o $(patsubst src/%,build/%,$@) $<
+
+build:
+	mkdir -p $(dir $(OBJECTS)) $(dir $(TARGET))
 
 clean:
-	rm -f bin/$(EXEC)
+	rm -rf $(dir $(OBJECTS)) $(dir $(TARGET))
+	find src -name *.o -delete
+
+echo:
+	@echo $(dir $(OBJECTS))
