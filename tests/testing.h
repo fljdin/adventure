@@ -14,8 +14,8 @@
   ANSI_RED "[FAILED] " M ANSI_RESET, ##__VA_ARGS__)
 
 #define assert_that(A)\
-  if(!(A)) { log_failed("%", __func__); }\
-	else { log_passed("%", __func__); }
+  if(!(A)) { log_failed("%s", __func__); }\
+      else { log_passed("%s", __func__); }
 
 #define assert_int_eq(A, B)\
   if(A != B) { log_failed("%s got=%d expected=%d\n",__func__,A,B); }\

@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include "player.h"
+#include <stdlib.h>
+#include "engine/player.h"
+#include "testing.h"
 
 void player_is_created()
 {
-  Player player = Player_create();
-  assert_that(player != NULL);
-  free(player);
+  Player player = CreatePlayer();
+  assert_that(player.position >= 0);
 }
 
 int main()

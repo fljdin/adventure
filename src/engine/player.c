@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include "player.h"
+#include "engine/player.h"
 
-Player *Player_create()
+Player CreatePlayer()
 {
-  Player *player = malloc(sizeof(Player));
-  player->position = 0;
+  Player player;
+  player.position = 0;
 
   return player;
 }

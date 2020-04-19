@@ -1,6 +1,6 @@
 # Header
 CC = gcc
-CFLAGS = -g -Wall -Isrc
+CFLAGS = -g -I src
 
 TARGET ?= bin/console
 SOURCES = $(shell find src/engine -name *.c)
@@ -17,14 +17,14 @@ all: build $(TARGET)
 tests: build $(TST_TARGET)
 
 $(TARGET): $(SOURCES:.c=.o)
-	$(CC) -o $@ $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS)
 
 $(TST_TARGET): $(SOURCES:.c=.o)
-	$(CC) -c -o $(patsubst bin/%,build/%.o,$@) $(patsubst bin/%,tests/%.c,$@)
-	$(CC) -o $@ $(patsubst bin/%,build/%.o,$@) $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(wildcard tests/$(notdir $@).c)
+	@./$@ ; echo
 
 $(SOURCES:.c=.o): %o: %c
-	$(CC) -c -o $(patsubst src/%,build/%,$@) $<
+	$(CC) $(CFLAGS) -c -o $(patsubst src/%,build/%,$@) $<
 
 build:
 	mkdir -p $(dir $(OBJECTS)) $(dir $(TARGET))
