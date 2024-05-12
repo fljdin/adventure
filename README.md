@@ -32,7 +32,8 @@ to provide an interactive interface.
 commands:
 
 ```sh
-make test
+make
+./build/adventure
 ```
 
 [Meson]: https://mesonbuild.com/

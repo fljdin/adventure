@@ -7,24 +7,14 @@ project('adventure', 'c',
   ]
 )
 
-unity_subproject = subproject('unity')
-unity_dependency = unity_subproject.get_variable('unity_dep')
-unity_gen_runner = unity_subproject.get_variable('gen_test_runner')
-
-player = files([
-  'src' / 'Player.c',
-  'test' / 'TestPlayer.c',
-])
-
+ncurses_dependency = dependency('ncurses')
 inc = include_directories('src')
 
-player01 = executable('player01',
-  sources: [
-    player,
-    unity_gen_runner.process('test' / 'TestPlayer.c')
-  ],
-  include_directories: [ inc ],
-  dependencies: [ unity_dependency ],
-)
+subdir('src')
+subdir('test')
 
-test('player-01', player01)
+executable('adventure',
+  sources: sources,
+  include_directories: [ inc ],
+  dependencies: [ ncurses_dependency ],
+)
