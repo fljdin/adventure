@@ -1,37 +1,102 @@
-# Header
-CC = gcc
-CFLAGS = -g -I src
+# Source: https://www.throwtheswitch.org/build/make
 
-TARGET ?= bin/console
-SOURCES = $(shell find src/engine -name *.c)
-OBJECTS = $(patsubst src/%.c,build/%.o,$(SOURCES))
+ifeq ($(OS),Windows_NT)
+  ifeq ($(shell uname -s),) # not in a bash-like shell
+	CLEANUP = del /F /Q
+	MKDIR = mkdir
+  else # in a bash-like shell, like msys
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+  endif
+	TARGET_EXTENSION=exe
+else
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+	TARGET_EXTENSION=out
+endif
 
-TESTS = $(wildcard tests/*_test.c)
-TST_TARGET = $(patsubst tests/%.c,bin/%,$(TESTS))
+.PHONY: clean
+.PHONY: test
 
-# Target build
-.PHONY: build tests
+PATHU = unity/
+PATHS = src/
+PATHT = test/
+PATHB = build/
+PATHD = build/depends/
+PATHO = build/objs/
+PATHR = build/results/
 
-all: build $(TARGET)
+BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
 
-tests: build $(TST_TARGET)
+SRCT = $(wildcard $(PATHT)*.c)
 
-$(TARGET): $(SOURCES:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS)
+COMPILE=gcc -c
+LINK=gcc
+DEPEND=gcc -MM -MG -MF
+CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
 
-$(TST_TARGET): $(SOURCES:.c=.o)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(wildcard tests/$(notdir $@).c)
-	@./$@ ; echo
+RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
-$(SOURCES:.c=.o): %o: %c
-	$(CC) $(CFLAGS) -c -o $(patsubst src/%,build/%,$@) $<
+PASSED = `grep -s PASS $(PATHR)*.txt`
+FAIL = `grep -s FAIL $(PATHR)*.txt`
+IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-build:
-	mkdir -p $(dir $(OBJECTS)) $(dir $(TARGET))
+test: $(BUILD_PATHS) $(RESULTS)
+	@echo "-----------------------\nIGNORES:\n-----------------------"
+	@echo "$(IGNORE)"
+	@echo "-----------------------\nFAILURES:\n-----------------------"
+	@echo "$(FAIL)"
+	@echo "-----------------------\nPASSED:\n-----------------------"
+	@echo "$(PASSED)"
+	@echo "\nDONE"
+
+$(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
+	-./$< > $@ 2>&1
+
+$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o #$(PATHD)Test%.d
+	$(LINK) -o $@ $^
+
+$(PATHO)%.o:: $(PATHT)%.c
+	$(COMPILE) $(CFLAGS) $< -o $@
+
+$(PATHO)%.o:: $(PATHS)%.c
+	$(COMPILE) $(CFLAGS) $< -o $@
+
+$(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
+	$(COMPILE) $(CFLAGS) $< -o $@
+
+$(PATHD)%.d:: $(PATHT)%.c
+	$(DEPEND) $@ $<
+
+$(PATHB):
+	$(MKDIR) $(PATHB)
+
+$(PATHD):
+	$(MKDIR) $(PATHD)
+
+$(PATHO):
+	$(MKDIR) $(PATHO)
+
+$(PATHR):
+	$(MKDIR) $(PATHR)
 
 clean:
-	rm -rf $(dir $(OBJECTS)) $(dir $(TARGET))
-	find src -name *.o -delete
+	$(CLEANUP) $(PATHO)*.o
+	$(CLEANUP) $(PATHB)*.$(TARGET_EXTENSION)
+	$(CLEANUP) $(PATHR)*.txt
 
-echo:
-	@echo $(dir $(OBJECTS))
+.PRECIOUS: $(PATHB)Test%.$(TARGET_EXTENSION)
+.PRECIOUS: $(PATHD)%.d
+.PRECIOUS: $(PATHO)%.o
+.PRECIOUS: $(PATHR)%.txt
+
+# Unity test framework
+UNITY_TAR  = $(PATHU)/unity.tar.gz
+UNITY      = $(PATHU)/unity.c
+
+# Download Unity test framework
+unity:
+	mkdir -p $(PATHU)
+	wget -O $(UNITY_TAR) https://github.com/ThrowTheSwitch/Unity/archive/refs/tags/v2.6.0.tar.gz
+	tar -xzf $(UNITY_TAR) --strip-components=2 -C $(PATHU) Unity-2.6.0/src
+	rm $(UNITY_TAR)
