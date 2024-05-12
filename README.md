@@ -10,12 +10,12 @@ can choose to attack, cast a sortilege, use an item, or flee.
 
 ## Features
 
-- [x] Player has a health bar
 - [ ] Player can choose which direction to go in
 - [ ] Player has armor and weapon slots
 - [ ] Player can pick up items, such as health potions
 - [ ] Player can fight enemies in turn-based combat
-- [ ] Player can cast spells
+    - [x] Player has a health bar
+    - [ ] Player can cast spells
 
 ## Technical aspects
 
@@ -25,3 +25,14 @@ to provide an interactive interface.
 
 [Unity]: https://www.throwtheswitch.org/unity
 [ncurses]: https://invisible-island.net/ncurses/
+
+## Building
+
+[Meson] is used as the build system. To build the project, run the following
+commands:
+
+```sh
+make test
+```
+
+[Meson]: https://mesonbuild.com/
