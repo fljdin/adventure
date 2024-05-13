@@ -10,12 +10,12 @@ can choose to attack, cast a sortilege, use an item, or flee.
 
 ## Features
 
-- [ ] Player can choose which direction to go in
+- [x] The map is a succession of rooms connected by doors
 - [ ] Player has armor and weapon slots
 - [ ] Player can pick up items, such as health potions
 - [ ] Player can fight enemies in turn-based combat
-    - [x] Player has a health bar
-    - [ ] Player can cast spells
+  - [x] Player has a health bar
+  - [ ] Player can cast spells
 
 ## Technical aspects
 
