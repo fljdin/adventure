@@ -22,3 +22,13 @@ test('map', executable('map',
   include_directories: [ inc ],
   dependencies: [ unity_dependency ],
 ))
+
+game += files('TestGame.c')
+test('game', executable('game',
+  sources: [
+    game,
+    unity_gen_runner.process('TestGame.c')
+  ],
+  include_directories: [ inc ],
+  dependencies: [ unity_dependency ],
+))

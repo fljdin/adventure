@@ -1,5 +1,6 @@
 project('adventure', 'c',
   license: 'The Unlicense',
+  version: '0.0.1',
   meson_version: '>= 1.0.0',
   default_options: [
     'c_std=c99',

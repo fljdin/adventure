@@ -1,6 +1,7 @@
-
+main = files('main.c')
 player = files('Player.c')
 map = files('Map.c')
-console = files('Console.c')
+game = files('Game.c')
 
-sources = player + map + console
+game += player + map
+sources = main + game
