@@ -3,32 +3,19 @@ unity_subproject = subproject('unity')
 unity_dependency = unity_subproject.get_variable('unity_dep')
 unity_gen_runner = unity_subproject.get_variable('gen_test_runner')
 
-player += files('TestPlayer.c')
-test('player', executable('player',
-  sources: [
-    player,
-    unity_gen_runner.process('TestPlayer.c')
-  ],
-  include_directories: [ inc ],
-  dependencies: [ unity_dependency ],
-))
+testing = [
+  { 'name': 'player', 'source': player, 'file': 'TestPlayer.c' },
+  { 'name': 'map', 'source': map, 'file': 'TestMap.c' },
+  { 'name': 'game', 'source': game, 'file': 'TestGame.c' },
+]
 
-map += files('TestMap.c')
-test('map', executable('map',
-  sources: [
-    map,
-    unity_gen_runner.process('TestMap.c')
-  ],
-  include_directories: [ inc ],
-  dependencies: [ unity_dependency ],
-))
-
-game += files('TestGame.c')
-test('game', executable('game',
-  sources: [
-    game,
-    unity_gen_runner.process('TestGame.c')
-  ],
-  include_directories: [ inc ],
-  dependencies: [ unity_dependency ],
-))
+foreach test : testing
+  test(test['name'], executable(test['name'],
+    sources: [
+      test['source'] + files(test['file']),
+      unity_gen_runner.process(test['file'])
+    ],
+    include_directories: [ inc ],
+    dependencies: [ unity_dependency ],
+  ))
+endforeach
