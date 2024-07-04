@@ -8,7 +8,8 @@ project('adventure', 'c',
   ]
 )
 
-ncurses_dependency = dependency('ncurses')
+ncurses_dep = dependency('ncurses')
+yaml_sp = subproject('yaml')
 inc = include_directories('src')
 
 subdir('src')
@@ -17,5 +18,5 @@ subdir('test')
 executable('adventure',
   sources: sources,
   include_directories: [ inc ],
-  dependencies: [ ncurses_dependency ],
+  dependencies: [ ncurses_dep, yaml_sp.get_variable('yaml_dep') ],
 )
