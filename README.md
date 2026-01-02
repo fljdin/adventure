@@ -10,7 +10,7 @@ can choose to attack, cast a sortilege, use an item, or flee.
 
 ## Features
 
-- [x] The map is a succession of rooms connected by doors
+- [ ] The map is a succession of rooms connected by doors
 - [ ] Player has armor and weapon slots
 - [ ] Player can pick up items, such as health potions
 - [ ] Player can fight enemies in turn-based combat
