@@ -1,4 +1,4 @@
 .cache
 .wraplock
 build/
-unity/
+subprojects/*/

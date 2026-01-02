@@ -14,9 +14,8 @@ foreach test : testing
       unity_gen_runner.process(test['file'])
     ],
     include_directories: [ inc ],
-    dependencies: [ 
-      unity_sp.get_variable('unity_dep'), 
-      yaml_sp.get_variable('yaml_dep') 
+    dependencies: [
+      unity_sp.get_variable('unity_dep')
     ],
   ))
 endforeach
