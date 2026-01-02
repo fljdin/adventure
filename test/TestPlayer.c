@@ -1,18 +1,21 @@
 #include "unity.h"
 #include "Player.h"
 
-void test_NewPlayer(void)
+player_t player;
+
+void setUp(void) {
+    player_init(&player, "John", 100);
+}
+
+void test_player_init(void)
 {
-    Player player;
-    player = NewPlayer("John", 100);
     TEST_ASSERT_EQUAL_STRING("John", player.name);
+    TEST_ASSERT_EQUAL(100, player.health_max);
     TEST_ASSERT_EQUAL(100, player.health);
 }
 
-void test_PlayerHasDamage(void)
+void test_player_take_damage(void)
 {
-    Player player;
-    player = NewPlayer("John", 100);
-    player.health -= 10;
+    player_take_damage(&player, 10);
     TEST_ASSERT_EQUAL(90, player.health);
 }

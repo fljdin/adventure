@@ -1,8 +1,10 @@
 #pragma once
 
-typedef struct Player {
+typedef struct {
     char name[100];
     int health;
-} Player;
+    int health_max;
+} player_t;
 
-Player NewPlayer(const char *name, int hp);
+void player_init(player_t *p, const char *name, int hp);
+void player_take_damage(player_t *p, int damage);
