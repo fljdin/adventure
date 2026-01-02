@@ -15,3 +15,10 @@ void player_take_damage(player_t *p, int damage)
     p->health -= damage;
     if (p->health < 0) p->health = 0;
 }
+
+void player_heal(player_t *p, int amount)
+{
+    if (!p || amount <= 0) return;
+    p->health += amount;
+    if (p->health > p->health_max) p->health = p->health_max;
+}
