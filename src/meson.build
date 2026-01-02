@@ -1,4 +1,7 @@
 main = files('main.c')
-player = files('player.c')
+core = files(
+    'inventory.c',
+    'player.c',
+)
 
-sources = main + player
+sources = main + core

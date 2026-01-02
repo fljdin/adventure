@@ -3,13 +3,14 @@ unity_sp = subproject('unity')
 unity_gen_runner = unity_sp.get_variable('gen_test_runner')
 
 testing = [
-  { 'name': 'player', 'source': player, 'file': 'test_player.c' },
+  { 'name': 'player', 'file': 'test_player.c' },
+  { 'name': 'inventory', 'file': 'test_inventory.c' },
 ]
 
 foreach test : testing
   test(test['name'], executable(test['name'],
     sources: [
-      test['source'] + files(test['file']),
+      core + files(test['file']),
       unity_gen_runner.process(test['file'])
     ],
     include_directories: [ inc ],
