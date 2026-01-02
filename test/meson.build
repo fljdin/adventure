@@ -3,7 +3,7 @@ unity_sp = subproject('unity')
 unity_gen_runner = unity_sp.get_variable('gen_test_runner')
 
 testing = [
-  { 'name': 'player', 'source': player, 'file': 'TestPlayer.c' },
+  { 'name': 'player', 'source': player, 'file': 'test_player.c' },
 ]
 
 foreach test : testing

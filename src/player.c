@@ -1,5 +1,5 @@
 #include <string.h>
-#include "Player.h"
+#include "player.h"
 
 void player_init(player_t *p, const char *name, int hp)
 {
