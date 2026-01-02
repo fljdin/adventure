@@ -39,3 +39,15 @@ void test_inventory_remove_invalid_index_fails(void)
     result = inventory_remove_item(&inv, 10);
     TEST_ASSERT_NOT_EQUAL_INT(0, result);
 }
+
+void test_inventory_total_weight(void)
+{
+    item_t sword = {"Sword", 5};
+    item_t shield = {"Shield", 10};
+
+    inventory_add_item(&inv, sword);
+    inventory_add_item(&inv, shield);
+
+    int weigth = inventory_get_total_weight(&inv);
+    TEST_ASSERT_EQUAL_INT(15, weigth);
+}

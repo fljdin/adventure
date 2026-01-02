@@ -37,3 +37,14 @@ int inventory_remove_item(inventory_t *inv, int index)
     inv->count -= 1;
     return 0;
 }
+
+int inventory_get_total_weight(const inventory_t *inv)
+{
+    if (!inv) return 0;
+    int total = 0;
+    for (int i = 0; i < inv->count; i++)
+    {
+        total += inv->items[i].weight;
+    }
+    return total;
+}
