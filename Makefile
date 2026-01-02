@@ -1,8 +1,8 @@
-.PHONY: test build
+.PHONY: build
 
 build:
 	meson setup --reconfigure build
 	meson compile -C build
 
-test: build
+tests:
 	meson test -C build -v
