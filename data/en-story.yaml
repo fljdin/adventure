@@ -1,7 +1,0 @@
-locations:
-  - ROOM_1: name="Room" description="A obscure room with a closed door in front of you"
-  - CHAMBER: name="Chamber" description="You wake up in your bed"
-
-paths:
-  - ROOM_1:
-    - FRONT: CHAMBER

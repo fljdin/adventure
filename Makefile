@@ -2,7 +2,7 @@
 
 build:
 	meson setup --reconfigure build
-	cd build/ && meson compile
+	meson compile -C build
 
 test: build
-	cd build/ && meson test
+	meson test -C build -v
