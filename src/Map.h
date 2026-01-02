@@ -5,5 +5,5 @@ typedef struct Room {
     struct Room* door;
 } Room;
 
-Room* NewRoom();
+Room* NewRoom(void);
 Room* NewMap(int size);

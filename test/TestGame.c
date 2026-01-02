@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 
-void test_InitGame() {
+void test_InitGame(void) {
     Player player = NewPlayer("p", 100);
     Room *room = NewMap(10);
     Game game = InitGame(&player, room);
@@ -13,7 +13,7 @@ void test_InitGame() {
     TEST_ASSERT_EQUAL(1, game.level);
 }
 
-void test_OpenDoor() {
+void test_OpenDoor(void) {
     Player player = NewPlayer("p", 100);
     Room *room = NewMap(10);
     Game game = InitGame(&player, room);

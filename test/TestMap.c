@@ -1,7 +1,7 @@
 #include "unity.h"
 #include "Map.h"
 
-void test_NewMapWithOneRoom()
+void test_NewMapWithOneRoom(void)
 {
     Room *room = NewMap(1);
 
@@ -10,12 +10,12 @@ void test_NewMapWithOneRoom()
     TEST_ASSERT_NULL(room->door);
 }
 
-void test_NewMap()
+void test_NewMap(void)
 {
     int size = 10;
     int doorCount = 0;
     Room *room = NewMap(size);
-    
+
     // pass through all doors
     while (room->door != NULL)
     {
@@ -28,7 +28,7 @@ void test_NewMap()
     TEST_ASSERT_EQUAL(size - 1, doorCount);
 }
 
-void test_NewRoom()
+void test_NewRoom(void)
 {
     Room *room = NewRoom();
 

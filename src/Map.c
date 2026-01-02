@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "Map.h"
 
-Room* NewRoom()
+Room* NewRoom(void)
 {
     Room *room = malloc(sizeof(Room));
     room->description = malloc(100);
