@@ -8,7 +8,8 @@ void inventory_init(inventory_t *inv)
     inv->items = NULL;
 }
 
-int inventory_add_item(inventory_t *inv, item_t item) {
+int inventory_add_item(inventory_t *inv, item_t item)
+{
     if (!inv || item.weight < 0) return -1;
 
     item_t *items = realloc(inv->items, (inv->count + 1) * sizeof(item_t));

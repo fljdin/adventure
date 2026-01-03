@@ -1,3 +1,4 @@
+#include "inventory.h"
 #include "unity.h"
 #include "player.h"
 
@@ -5,7 +6,11 @@ player_t player;
 
 void setUp(void)
 {
-    player_init(&player, "John", 100);
+    player_init(&player,
+        "John", // Name
+        100,    // Health
+        10      // Strength
+    );
 }
 
 void test_player_init(void)
@@ -31,4 +36,18 @@ void test_player_health_cannot_exceed_max(void)
 {
     player_heal(&player, 10);
     TEST_ASSERT_EQUAL_INT(player.health, player.health_max);
+}
+
+void test_player_inventory_is_overloaded(void)
+{
+    player.strength = 1; // capacity = 5 * str + 50
+    TEST_ASSERT_EQUAL_INT(55, player_max_capacity(&player));
+
+    inventory_add_item(&player.inventory, (item_t){"Sword", 30});
+    bool is_overloaded = player_is_inventory_overloaded(&player);
+    TEST_ASSERT(!is_overloaded);
+
+    inventory_add_item(&player.inventory, (item_t){"Sword", 30});
+    is_overloaded = player_is_inventory_overloaded(&player);
+    TEST_ASSERT(is_overloaded);
 }
