@@ -1,16 +1,16 @@
 # Adventure
 
-Adventure is a test-driven text adventure side project written in C.
+Adventure is a test-driven linear dungeon crawler side project written in C.
 
 ## Gameplay
 
 Player starts in a room. Each action is textually described, and the player can
-choose which one to take. Combat show the participant's health, and the player
+choose which one to take. Combat shows the participant's health, and the player
 can choose to attack, cast a sortilege, use an item, or flee.
 
 ## Features
 
-- [ ] The map is a succession of rooms connected by doors
+- [x] The dungeon is a succession of rooms connected by doors
 - [ ] Player has armor and weapon slots
 - [x] Player can pick up items, such as health potions
 - [ ] Player can fight enemies in turn-based combat
