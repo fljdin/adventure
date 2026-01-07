@@ -1,11 +1,12 @@
+#include <stddef.h>
 #include <string.h>
 #include "player.h"
 #include "inventory.h"
 
 void player_init(player_t *p,
     const char *name,
-    int hp,
-    int str
+    size_t hp,
+    size_t str
 )
 {
     if (!p) return;
@@ -17,21 +18,24 @@ void player_init(player_t *p,
     inventory_init(&p->inventory);
 }
 
-void player_take_damage(player_t *p, int damage)
+void player_take_damage(player_t *p, size_t damage)
 {
-    if (!p || damage <= 0) return;
-    p->health -= damage;
-    if (p->health < 0) p->health = 0;
+    if (!p) return;
+    if (p->health < damage)
+        p->health = 0;
+    else
+        p->health -= damage;
 }
 
-void player_heal(player_t *p, int amount)
+void player_heal(player_t *p, size_t amount)
 {
-    if (!p || amount <= 0) return;
+    if (!p) return;
     p->health += amount;
-    if (p->health > p->health_max) p->health = p->health_max;
+    if (p->health > p->health_max)
+        p->health = p->health_max;
 }
 
-int player_max_capacity(const player_t *p)
+size_t player_max_capacity(const player_t *p)
 {
     return 5 * p->strength + 50;
 }

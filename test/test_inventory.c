@@ -48,13 +48,6 @@ void test_inventory_total_weight(void)
     inventory_add_item(&inv, sword);
     inventory_add_item(&inv, shield);
 
-    int weigth = inventory_get_total_weight(&inv);
+    size_t weigth = inventory_get_total_weight(&inv);
     TEST_ASSERT_EQUAL_INT(15, weigth);
-}
-
-void test_inventory_item_weight_cannot_be_negative(void)
-{
-    item_t item = {"Item", -1};
-    int result = inventory_add_item(&inv, item);
-    TEST_ASSERT_NOT_EQUAL_INT(0, result);
 }

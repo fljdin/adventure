@@ -1,16 +1,17 @@
 #pragma once
+#include <stddef.h>
 
 typedef struct {
     char name[32];
-    int weight;
+    size_t weight;
 } item_t;
 
 typedef struct {
-    int count;
+    size_t count;
     item_t *items;
 } inventory_t;
 
 void inventory_init(inventory_t *inv);
 int inventory_add_item(inventory_t *inv, item_t item);
-int inventory_remove_item(inventory_t *inv, int index);
-int inventory_get_total_weight(const inventory_t *inv);
+int inventory_remove_item(inventory_t *inv, size_t index);
+size_t inventory_get_total_weight(const inventory_t *inv);
