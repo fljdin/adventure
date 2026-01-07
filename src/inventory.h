@@ -1,5 +1,6 @@
 #pragma once
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct {
     char name[32];
@@ -12,6 +13,6 @@ typedef struct {
 } inventory_t;
 
 void inventory_init(inventory_t *inv);
-int inventory_add_item(inventory_t *inv, item_t item);
-int inventory_remove_item(inventory_t *inv, size_t index);
+bool inventory_add_item(inventory_t *inv, item_t item);
+bool inventory_remove_item(inventory_t *inv, size_t index);
 size_t inventory_get_total_weight(const inventory_t *inv);

@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "inventory.h"
+#include <stddef.h>
 
 inventory_t inv;
 
@@ -13,7 +14,7 @@ void test_inventory_add_item_increase_count(void)
     item_t sword = {"Sword", 5};
     int result = inventory_add_item(&inv, sword);
 
-    TEST_ASSERT_EQUAL_INT(0, result); // OK
+    TEST_ASSERT_EQUAL(true, result);
     TEST_ASSERT_EQUAL_INT(1, inv.count);
     TEST_ASSERT_EQUAL_STRING("Sword", inv.items[0].name);
 }
@@ -33,11 +34,11 @@ void test_inventory_remove_item_shifts_remaining_items(void)
 
 void test_inventory_remove_invalid_index_fails(void)
 {
-    int result = inventory_remove_item(&inv, -1);
-    TEST_ASSERT_NOT_EQUAL_INT(0, result);
+    bool result = inventory_remove_item(&inv, -1);
+    TEST_ASSERT_EQUAL(false, result);
 
     result = inventory_remove_item(&inv, 10);
-    TEST_ASSERT_NOT_EQUAL_INT(0, result);
+    TEST_ASSERT_EQUAL(false, result);
 }
 
 void test_inventory_total_weight(void)

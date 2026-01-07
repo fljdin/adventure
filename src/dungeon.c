@@ -1,6 +1,4 @@
-#include <stddef.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include "dungeon.h"
 
 void dungeon_init(dungeon_t *d, const size_t total, const room_type_t *rooms)

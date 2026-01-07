@@ -1,4 +1,3 @@
-#include <stddef.h>
 #include <stdlib.h>
 #include "inventory.h"
 
@@ -9,22 +8,22 @@ void inventory_init(inventory_t *inv)
     inv->items = NULL;
 }
 
-int inventory_add_item(inventory_t *inv, item_t item)
+bool inventory_add_item(inventory_t *inv, item_t item)
 {
-    if (!inv) return -1;
+    if (!inv) return false;
 
     item_t *items = realloc(inv->items, (inv->count + 1) * sizeof(item_t));
-    if (!items) return -1;
+    if (!items) return false;
 
     inv->items = items;
     inv->items[inv->count] = item;
     inv->count += 1;
-    return 0;
+    return true;
 }
 
-int inventory_remove_item(inventory_t *inv, size_t index)
+bool inventory_remove_item(inventory_t *inv, size_t index)
 {
-    if (!inv || index >= inv->count) return -1;
+    if (!inv || index >= inv->count) return false;
 
     // shift remaining items beyond index to the left
     for (size_t i = index; i < inv->count - 1; i++)
@@ -33,11 +32,11 @@ int inventory_remove_item(inventory_t *inv, size_t index)
     }
 
     item_t *items = realloc(inv->items, (inv->count - 1) * sizeof(item_t));
-    if (!items) return -1;
+    if (!items) return false;
 
     inv->items = items;
     inv->count -= 1;
-    return 0;
+    return true;
 }
 
 size_t inventory_get_total_weight(const inventory_t *inv)
