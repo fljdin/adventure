@@ -6,6 +6,7 @@ testing = [
   { 'name': 'player', 'file': 'test_player.c' },
   { 'name': 'inventory', 'file': 'test_inventory.c' },
   { 'name': 'dungeon', 'file': 'test_dungeon.c' },
+  { 'name': 'dice', 'file': 'test_dice.c' },
 ]
 
 foreach test : testing
