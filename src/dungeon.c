@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "dungeon.h"
 
 void dungeon_init(struct dungeon *d, unsigned const total, unsigned const rooms[])
@@ -19,10 +20,9 @@ void dungeon_init(struct dungeon *d, unsigned const total, unsigned const rooms[
 
 void dungeon_destroy(struct dungeon *d)
 {
+    if (!d) return;
     if (d->rooms) free(d->rooms);
-    d->rooms = NULL;
-    d->current = 0;
-    d->total_rooms = 0;
+    memset(d, 0, sizeof(struct dungeon));
 }
 
 bool dungeon_open_door(struct dungeon *d)

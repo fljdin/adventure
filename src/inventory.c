@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "inventory.h"
 
 void inventory_init(struct inventory *inv)
@@ -6,6 +7,13 @@ void inventory_init(struct inventory *inv)
     if (!inv) return;
     inv->count = 0;
     inv->items = NULL;
+}
+
+void inventory_destroy(struct inventory *inv)
+{
+    if (!inv) return;
+    if (inv->items) free(inv->items);
+    memset(inv, 0, sizeof(struct inventory));
 }
 
 bool inventory_add_item(struct inventory *inv, struct item const item)

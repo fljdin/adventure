@@ -17,6 +17,13 @@ void player_init(struct player *p,
     inventory_init(&p->inventory);
 }
 
+void player_destroy(struct player *p)
+{
+    if (!p) return;
+    inventory_destroy(&p->inventory);
+    memset(p, 0, sizeof(struct player));
+}
+
 void player_take_damage(struct player *p, unsigned const damage)
 {
     if (!p) return;

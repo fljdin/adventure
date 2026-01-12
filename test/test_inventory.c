@@ -9,6 +9,11 @@ void setUp(void)
     inventory_init(&inv);
 }
 
+void tearDown(void)
+{
+    inventory_destroy(&inv);
+}
+
 void test_inventory_add_item_increase_count(void)
 {
     struct item sword = {.name="Sword", .weight=5};

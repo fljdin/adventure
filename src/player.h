@@ -11,6 +11,7 @@ struct player
 };
 
 void player_init(struct player *p, char const *name, unsigned hp, unsigned str);
+void player_destroy(struct player *p);
 void player_take_damage(struct player *p, unsigned const damage);
 void player_heal(struct player *p, unsigned const amount);
 

@@ -13,6 +13,11 @@ void setUp(void)
     );
 }
 
+void tearDown(void)
+{
+    player_destroy(&player);
+}
+
 void test_player_init(void)
 {
     TEST_ASSERT_EQUAL_STRING("John", player.name);
