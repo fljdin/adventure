@@ -1,18 +1,18 @@
 #include <stdlib.h>
 #include "inventory.h"
 
-void inventory_init(inventory_t *inv)
+void inventory_init(struct inventory *inv)
 {
     if (!inv) return;
     inv->count = 0;
     inv->items = NULL;
 }
 
-bool inventory_add_item(inventory_t *inv, item_t const item)
+bool inventory_add_item(struct inventory *inv, struct item const item)
 {
     if (!inv) return false;
 
-    item_t *items = realloc(inv->items, (inv->count + 1) * sizeof(item_t));
+    struct item *items = realloc(inv->items, (inv->count + 1) * sizeof(struct item));
     if (!items) return false;
 
     inv->items = items;
@@ -21,7 +21,7 @@ bool inventory_add_item(inventory_t *inv, item_t const item)
     return true;
 }
 
-bool inventory_remove_item(inventory_t *inv, unsigned const index)
+bool inventory_remove_item(struct inventory *inv, unsigned const index)
 {
     if (!inv || index >= inv->count) return false;
 
@@ -31,7 +31,7 @@ bool inventory_remove_item(inventory_t *inv, unsigned const index)
         inv->items[i] = inv->items[i + 1];
     }
 
-    item_t *items = realloc(inv->items, (inv->count - 1) * sizeof(item_t));
+    struct item *items = realloc(inv->items, (inv->count - 1) * sizeof(struct item));
     if (!items) return false;
 
     inv->items = items;
@@ -39,7 +39,7 @@ bool inventory_remove_item(inventory_t *inv, unsigned const index)
     return true;
 }
 
-unsigned inventory_get_total_weight(inventory_t const *inv)
+unsigned inventory_get_total_weight(struct inventory const *inv)
 {
     if (!inv) return 0;
 

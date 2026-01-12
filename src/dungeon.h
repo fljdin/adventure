@@ -1,25 +1,28 @@
 #pragma once
 
-typedef enum {
+enum room_type
+{
     ROOM_EMPTY,
     ROOM_MONSTER,
     ROOM_CHEST,
     ROOM_SHOP,
     ROOM_BOSS
-} room_type_t;
+};
 
-typedef struct {
+struct room
+{
     int type;
-    char* description;
-} room_t;
+    char *description;
+};
 
-typedef struct {
+struct dungeon
+{
     unsigned current;
     unsigned total_rooms;
-    room_t *rooms;
-} dungeon_t;
+    struct room *rooms;
+};
 
-void dungeon_init(dungeon_t *d, unsigned const total, room_type_t const *rooms);
-void dungeon_destroy(dungeon_t *d);
-bool dungeon_open_door(dungeon_t *d);
-room_t* dungeon_current_room(dungeon_t *d);
+void dungeon_init(struct dungeon *d, unsigned const total, unsigned const rooms[]);
+void dungeon_destroy(struct dungeon *d);
+bool dungeon_open_door(struct dungeon *d);
+struct room *dungeon_current_room(struct dungeon *d);

@@ -2,7 +2,7 @@
 #include "player.h"
 #include "inventory.h"
 
-void player_init(player_t *p,
+void player_init(struct player *p,
     char const *name,
     unsigned hp,
     unsigned str
@@ -17,7 +17,7 @@ void player_init(player_t *p,
     inventory_init(&p->inventory);
 }
 
-void player_take_damage(player_t *p, unsigned const damage)
+void player_take_damage(struct player *p, unsigned const damage)
 {
     if (!p) return;
     if (p->health < damage)
@@ -26,7 +26,7 @@ void player_take_damage(player_t *p, unsigned const damage)
         p->health -= damage;
 }
 
-void player_heal(player_t *p, unsigned const amount)
+void player_heal(struct player *p, unsigned const amount)
 {
     if (!p) return;
     p->health += amount;
@@ -34,12 +34,12 @@ void player_heal(player_t *p, unsigned const amount)
         p->health = p->health_max;
 }
 
-unsigned player_max_capacity(player_t const *p)
+unsigned player_max_capacity(struct player const *p)
 {
     return 5 * p->strength + 50;
 }
 
-bool player_is_inventory_overloaded(player_t const *p)
+bool player_is_inventory_overloaded(struct player const *p)
 {
     return player_max_capacity(p)
            <= inventory_get_total_weight(&p->inventory);

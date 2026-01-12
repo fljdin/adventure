@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include "dungeon.h"
 
-void dungeon_init(dungeon_t *d, unsigned const total, room_type_t const *rooms)
+void dungeon_init(struct dungeon *d, unsigned const total, unsigned const rooms[])
 {
     if (!d || !total || !rooms) return;
 
-    d->rooms = malloc(total * sizeof(room_t));
+    d->rooms = malloc(total * sizeof(struct room));
     if (!d->rooms) return;
 
     d->current = 0;
@@ -17,7 +17,7 @@ void dungeon_init(dungeon_t *d, unsigned const total, room_type_t const *rooms)
     }
 }
 
-void dungeon_destroy(dungeon_t *d)
+void dungeon_destroy(struct dungeon *d)
 {
     if (d->rooms) free(d->rooms);
     d->rooms = NULL;
@@ -25,14 +25,14 @@ void dungeon_destroy(dungeon_t *d)
     d->total_rooms = 0;
 }
 
-bool dungeon_open_door(dungeon_t *d)
+bool dungeon_open_door(struct dungeon *d)
 {
     if (!d || d->current + 1 == d->total_rooms) return false;
     d->current++;
     return true;
 }
 
-room_t* dungeon_current_room(dungeon_t *d)
+struct room *dungeon_current_room(struct dungeon *d)
 {
     if (!d) return NULL;
     return &d->rooms[d->current];

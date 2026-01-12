@@ -2,7 +2,7 @@
 #include "unity.h"
 #include "player.h"
 
-player_t player;
+struct player player;
 
 void setUp(void)
 {
@@ -43,11 +43,11 @@ void test_player_inventory_is_overloaded(void)
     player.strength = 1; // capacity = 5 * str + 50
     TEST_ASSERT_EQUAL_INT(55, player_max_capacity(&player));
 
-    inventory_add_item(&player.inventory, (item_t){"Sword", 30});
+    inventory_add_item(&player.inventory, (struct item){.name="Sword", .weight=30});
     bool is_overloaded = player_is_inventory_overloaded(&player);
     TEST_ASSERT(!is_overloaded);
 
-    inventory_add_item(&player.inventory, (item_t){"Sword", 30});
+    inventory_add_item(&player.inventory, (struct item){.name="Sword", .weight=30});
     is_overloaded = player_is_inventory_overloaded(&player);
     TEST_ASSERT(is_overloaded);
 }

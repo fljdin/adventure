@@ -1,17 +1,18 @@
 #pragma once
 #include "inventory.h"
 
-typedef struct {
+struct player
+{
     char name[100];
     unsigned health;
     unsigned health_max;
     unsigned strength;
-    inventory_t inventory;
-} player_t;
+    struct inventory inventory;
+};
 
-void player_init(player_t *p, char const *name, unsigned hp, unsigned str);
-void player_take_damage(player_t *p, unsigned const damage);
-void player_heal(player_t *p, unsigned const amount);
+void player_init(struct player *p, char const *name, unsigned hp, unsigned str);
+void player_take_damage(struct player *p, unsigned const damage);
+void player_heal(struct player *p, unsigned const amount);
 
-unsigned player_max_capacity(player_t const *p);
-bool player_is_inventory_overloaded(player_t const *p);
+unsigned player_max_capacity(struct player const *p);
+bool player_is_inventory_overloaded(struct player const *p);
