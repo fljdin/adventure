@@ -6,3 +6,6 @@ build:
 
 tests:
 	meson test -C build -v
+
+clean:
+	rm -rf build .cache subprojects/*/

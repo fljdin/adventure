@@ -3,8 +3,9 @@ project('adventure', 'c',
   version: '0.0.1',
   meson_version: '>= 1.0.0',
   default_options: [
-    'c_std=c99',
+    'c_std=c23',
     'warning_level=3',
+    'werror=true'
   ]
 )
 
