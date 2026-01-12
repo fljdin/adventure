@@ -5,7 +5,8 @@
 void entity_init(struct entity *entity,
     char const *name,
     unsigned hp,
-    unsigned str
+    unsigned str,
+    unsigned dex
 )
 {
     if (!entity) return;
@@ -13,6 +14,7 @@ void entity_init(struct entity *entity,
     entity->health_max = (hp > 0) ? hp : 1;
     entity->health = entity->health_max;
     entity->strength = (str > 0) ? str : 1;
+    entity->dexterity = (dex > 0) ? dex : 1;
 
     inventory_init(&entity->inventory);
 }

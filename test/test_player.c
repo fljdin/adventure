@@ -9,7 +9,8 @@ void setUp(void)
     entity_init(&player,
         "John", // Name
         100,    // Health
-        10      // Strength
+        10,     // Strength
+        10      // Dexterity
     );
 }
 
