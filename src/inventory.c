@@ -8,7 +8,7 @@ void inventory_init(inventory_t *inv)
     inv->items = NULL;
 }
 
-bool inventory_add_item(inventory_t *inv, item_t item)
+bool inventory_add_item(inventory_t *inv, item_t const item)
 {
     if (!inv) return false;
 
@@ -21,7 +21,7 @@ bool inventory_add_item(inventory_t *inv, item_t item)
     return true;
 }
 
-bool inventory_remove_item(inventory_t *inv, unsigned index)
+bool inventory_remove_item(inventory_t *inv, unsigned const index)
 {
     if (!inv || index >= inv->count) return false;
 
@@ -39,7 +39,7 @@ bool inventory_remove_item(inventory_t *inv, unsigned index)
     return true;
 }
 
-unsigned inventory_get_total_weight(const inventory_t *inv)
+unsigned inventory_get_total_weight(inventory_t const *inv)
 {
     if (!inv) return 0;
 
