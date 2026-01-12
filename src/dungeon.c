@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "dungeon.h"
 
-void dungeon_init(dungeon_t *d, const size_t total, const room_type_t *rooms)
+void dungeon_init(dungeon_t *d, const unsigned total, const room_type_t *rooms)
 {
     if (!d || !total || !rooms) return;
 
@@ -11,7 +11,7 @@ void dungeon_init(dungeon_t *d, const size_t total, const room_type_t *rooms)
     d->current = 0;
     d->total_rooms = total;
 
-    for (size_t i = 0; i < total; i++)
+    for (unsigned i = 0; i < total; i++)
     {
         d->rooms[i].type = rooms[i];
     }

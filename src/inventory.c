@@ -21,12 +21,12 @@ bool inventory_add_item(inventory_t *inv, item_t item)
     return true;
 }
 
-bool inventory_remove_item(inventory_t *inv, size_t index)
+bool inventory_remove_item(inventory_t *inv, unsigned index)
 {
     if (!inv || index >= inv->count) return false;
 
     // shift remaining items beyond index to the left
-    for (size_t i = index; i < inv->count - 1; i++)
+    for (unsigned i = index; i < inv->count - 1; i++)
     {
         inv->items[i] = inv->items[i + 1];
     }
@@ -39,12 +39,12 @@ bool inventory_remove_item(inventory_t *inv, size_t index)
     return true;
 }
 
-size_t inventory_get_total_weight(const inventory_t *inv)
+unsigned inventory_get_total_weight(const inventory_t *inv)
 {
     if (!inv) return 0;
 
-    size_t total = 0;
-    for (size_t i = 0; i < inv->count; i++)
+    unsigned total = 0;
+    for (unsigned i = 0; i < inv->count; i++)
     {
         total += inv->items[i].weight;
     }

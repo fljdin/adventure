@@ -1,18 +1,18 @@
 #include <stdlib.h>
 #include "dice.h"
 
-unsigned int dice_random(unsigned int max)
+unsigned dice_random(unsigned max)
 {
     if (max == 0) return 0;
     return (rand() % max) + 1;
 }
 
-unsigned int dice_roll(const dice_t *d)
+unsigned dice_roll(const dice_t *d)
 {
     return dice_roll_with_func(d, dice_random);
 }
 
-unsigned int dice_roll_with_func(const dice_t *d, dice_func_t dice_func)
+unsigned dice_roll_with_func(const dice_t *d, dice_func_t dice_func)
 {
     if (!d || !dice_func) return 0;
 

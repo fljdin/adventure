@@ -4,8 +4,8 @@
 
 void player_init(player_t *p,
     const char *name,
-    size_t hp,
-    size_t str
+    unsigned hp,
+    unsigned str
 )
 {
     if (!p) return;
@@ -17,7 +17,7 @@ void player_init(player_t *p,
     inventory_init(&p->inventory);
 }
 
-void player_take_damage(player_t *p, size_t damage)
+void player_take_damage(player_t *p, unsigned damage)
 {
     if (!p) return;
     if (p->health < damage)
@@ -26,7 +26,7 @@ void player_take_damage(player_t *p, size_t damage)
         p->health -= damage;
 }
 
-void player_heal(player_t *p, size_t amount)
+void player_heal(player_t *p, unsigned amount)
 {
     if (!p) return;
     p->health += amount;
@@ -34,7 +34,7 @@ void player_heal(player_t *p, size_t amount)
         p->health = p->health_max;
 }
 
-size_t player_max_capacity(const player_t *p)
+unsigned player_max_capacity(const player_t *p)
 {
     return 5 * p->strength + 50;
 }
