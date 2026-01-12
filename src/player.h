@@ -1,5 +1,4 @@
 #pragma once
-#include <stdbool.h>
 #include "inventory.h"
 
 typedef struct {

@@ -1,6 +1,5 @@
 #pragma once
 #include <stddef.h>
-#include <stdbool.h>
 
 typedef enum {
     ROOM_EMPTY,
