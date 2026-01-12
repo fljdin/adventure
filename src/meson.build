@@ -3,7 +3,7 @@ core = files(
     'dungeon.c',
     'dice.c',
     'inventory.c',
-    'player.c',
+    'entity.c',
 )
 
 sources = main + core
