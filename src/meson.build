@@ -4,6 +4,7 @@ core = files(
     'dice.c',
     'inventory.c',
     'entity.c',
+    'combat.c',
 )
 
 sources = main + core
