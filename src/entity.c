@@ -17,6 +17,8 @@ void entity_init(struct entity *entity,
     entity->dexterity = (dex > 0) ? dex : 1;
 
     inventory_init(&entity->inventory);
+    entity->has_weapon = false;
+    entity->has_armor = false;
 }
 
 void entity_destroy(struct entity *entity)
@@ -33,6 +35,20 @@ void entity_take_damage(struct entity *entity, unsigned const damage)
         entity->health = 0;
     else
         entity->health -= damage;
+}
+
+void entity_set_weapon(struct entity *entity, struct item const item)
+{
+    if (!entity) return;
+    entity->weapon = item;
+    entity->has_weapon = true;
+}
+
+void entity_set_armor(struct entity *entity, struct item const item)
+{
+    if (!entity) return;
+    entity->armor = item;
+    entity->has_armor = true;
 }
 
 void entity_heal(struct entity *entity, unsigned const amount)

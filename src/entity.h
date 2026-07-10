@@ -9,6 +9,10 @@ struct entity
     unsigned strength;
     unsigned dexterity;
     struct inventory inventory;
+    struct item weapon;
+    struct item armor;
+    bool has_weapon;
+    bool has_armor;
 };
 
 void entity_init(
@@ -18,6 +22,8 @@ void entity_init(
 void entity_destroy(struct entity *entity);
 void entity_take_damage(struct entity *entity, unsigned const damage);
 void entity_heal(struct entity *entity, unsigned const amount);
+void entity_set_weapon(struct entity *entity, struct item const item);
+void entity_set_armor(struct entity *entity, struct item const item);
 
 unsigned entity_max_capacity(struct entity const *entity);
 bool entity_is_inventory_overloaded(struct entity const *entity);
