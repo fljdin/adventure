@@ -44,6 +44,14 @@ void test_entity_health_cannot_exceed_max(void)
     TEST_ASSERT_EQUAL_INT(player.health, player.health_max);
 }
 
+void test_entity_take_damage_with_armor(void)
+{
+    struct item shield = { .name = "Shield", .weight = 5, .type = ITEM_ARMOR, .value = 3 };
+    entity_set_armor(&player, shield);
+    entity_take_damage(&player, 10);
+    TEST_ASSERT_EQUAL(93, player.health);
+}
+
 void test_entity_inventory_is_overloaded(void)
 {
     player.strength = 1; // capacity = 5 * str + 50
