@@ -45,3 +45,12 @@ void test_critical_hit_deals_double_damage(void)
     entity_attack_with_func(&player, &monster, &d1, always_max);
     TEST_ASSERT_EQUAL_UINT(12, monster.health);
 }
+
+void test_higher_dexterity_goes_first(void)
+{
+    entity_init(&fast, "Rogue", 10, 5, 18);
+    entity_init(&slow, "Knight", 10, 5, 10);
+    TEST_ASSERT_EQUAL_INT(1, combat_turn_order(&fast, &slow));
+    TEST_ASSERT_EQUAL_INT(-1, combat_turn_order(&slow, &fast));
+    TEST_ASSERT_EQUAL_INT(0, combat_turn_order(&fast, &fast));
+}

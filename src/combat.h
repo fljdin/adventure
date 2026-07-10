@@ -4,3 +4,4 @@
 
 void entity_attack(struct entity *attacker, struct entity *defender, struct dice const *weapon_dice);
 void entity_attack_with_func(struct entity *attacker, struct entity *defender, struct dice const *weapon_dice, dice_func_t dice_func);
+int combat_turn_order(struct entity const *a, struct entity const *b);

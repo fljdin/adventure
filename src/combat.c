@@ -24,3 +24,17 @@ void entity_attack(struct entity *attacker, struct entity *defender, struct dice
 {
     entity_attack_with_func(attacker, defender, weapon_dice, dice_random);
 }
+
+int combat_turn_order(struct entity const *a, struct entity const *b)
+{
+    if (!a || !b)
+        return 0;
+
+    if (a->dexterity > b->dexterity)
+        return 1;
+
+    if (a->dexterity < b->dexterity)
+        return -1;
+
+    return 0;
+}
