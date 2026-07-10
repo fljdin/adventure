@@ -1,8 +1,8 @@
 #include "combat.h"
 
-void entity_attack_with_func(struct entity *attacker, struct entity *defender, struct dice const *weapon_dice, dice_func_t dice_func)
+void entity_attack_with_func(struct entity *attacker, struct entity *defender, dice_func_t dice_func)
 {
-    if (!attacker || !defender || !weapon_dice || !dice_func)
+    if (!attacker || !defender || !dice_func)
         return;
 
     struct dice accuracy = { .count = 1, .faces = 20, .bonus = 0 };
@@ -12,7 +12,10 @@ void entity_attack_with_func(struct entity *attacker, struct entity *defender, s
     if (accuracy_total < 10)
         return;
 
-    unsigned damage = dice_roll_with_func(weapon_dice, dice_func) + attacker->strength;
+    unsigned damage = attacker->strength;
+
+    if (attacker->has_weapon)
+        damage += dice_roll_with_func(&attacker->weapon.damage, dice_func);
 
     if (roll == 20)
         damage *= 2;
@@ -20,9 +23,9 @@ void entity_attack_with_func(struct entity *attacker, struct entity *defender, s
     entity_take_damage(defender, damage);
 }
 
-void entity_attack(struct entity *attacker, struct entity *defender, struct dice const *weapon_dice)
+void entity_attack(struct entity *attacker, struct entity *defender)
 {
-    entity_attack_with_func(attacker, defender, weapon_dice, dice_random);
+    entity_attack_with_func(attacker, defender, dice_random);
 }
 
 int combat_turn_order(struct entity const *a, struct entity const *b)
