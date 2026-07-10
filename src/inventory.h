@@ -1,9 +1,22 @@
 #pragma once
+#include "dice.h"
+
+enum item_type
+{
+    ITEM_GENERIC,
+    ITEM_WEAPON,
+    ITEM_ARMOR,
+};
 
 struct item
 {
     char name[32];
     unsigned weight;
+    enum item_type type;
+    union {
+        struct dice damage;
+        unsigned value;
+    };
 };
 
 struct inventory
