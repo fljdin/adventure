@@ -1,27 +1,6 @@
 #include "monster.h"
 #include "entity.h"
 
-static struct monster_equip_range const goblin_weapons[] = {
-    {61, 85, ITEM_CLUB},
-    {86, 100, ITEM_SHORT_SWORD},
-};
-
-static struct monster_equip_range const goblin_armors[] = {
-    {91, 100, ITEM_LEATHER_ARMOR},
-};
-
-static struct monster_equip_range const guard_weapons[] = {
-    {1, 100, ITEM_SHORT_SWORD},
-};
-
-static struct monster_equip_range const guard_armors[] = {
-    {1, 80, ITEM_CHAIN_SHIRT},
-};
-
-static struct monster_equip_range const boss_armors[] = {
-    {1, 100, ITEM_SCALE_MAIL},
-};
-
 struct monster_stats const monster_table[] = {
     [MONSTER_RAT] = {
         .name = "Rat",
@@ -34,9 +13,14 @@ struct monster_stats const monster_table[] = {
         .health = 10,
         .damage = {1, 6, 1},
         .dexterity = 14,
-        .weapons = goblin_weapons,
+        .weapons = (struct monster_equip_range[]){
+            {61, 85, ITEM_CLUB},
+            {86, 100, ITEM_SHORT_SWORD},
+        },
         .weapon_count = 2,
-        .armors = goblin_armors,
+        .armors = (struct monster_equip_range[]){
+            {91, 100, ITEM_LEATHER_ARMOR},
+        },
         .armor_count = 1,
     },
     [MONSTER_GUARD] = {
@@ -44,9 +28,13 @@ struct monster_stats const monster_table[] = {
         .health = 15,
         .damage = {1, 8, 2},
         .dexterity = 12,
-        .weapons = guard_weapons,
+        .weapons = (struct monster_equip_range[]){
+            {1, 100, ITEM_SHORT_SWORD},
+        },
         .weapon_count = 1,
-        .armors = guard_armors,
+        .armors = (struct monster_equip_range[]){
+            {1, 80, ITEM_CHAIN_SHIRT},
+        },
         .armor_count = 1,
     },
     [MONSTER_BOSS] = {
@@ -54,7 +42,9 @@ struct monster_stats const monster_table[] = {
         .health = 35,
         .damage = {1, 10, 5},
         .dexterity = 10,
-        .armors = boss_armors,
+        .armors = (struct monster_equip_range[]){
+            {1, 100, ITEM_SCALE_MAIL},
+        },
         .armor_count = 1,
     },
 };
