@@ -32,9 +32,9 @@ void entity_take_damage(struct entity *entity, unsigned const damage)
 {
     if (!entity) return;
     unsigned effective = damage;
-    if (entity->has_armor && entity->armor.value > 0)
-        effective = damage > entity->armor.value
-                  ? damage - entity->armor.value
+    if (entity->has_armor && entity->armor.protection > 0)
+        effective = damage > entity->armor.protection
+                  ? damage - entity->armor.protection
                   : 0;
     if (entity->health < effective)
         entity->health = 0;
