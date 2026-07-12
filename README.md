@@ -11,11 +11,13 @@ can choose to attack, cast a sortilege, use an item, or flee.
 ## Features
 
 - [x] The dungeon is a succession of rooms connected by doors
-- [ ] Player has armor and weapon slots
+- [x] Player has armor and weapon slots (equip/unequip pending)
 - [x] Player can pick up items, such as health potions
-- [ ] Player can fight enemies in turn-based combat
+- [x] Player can attack in turn-based combat
   - [x] Player has a health bar
-  - [ ] Player can cast spells
+  - [x] Armor reduces incoming damage
+  - [ ] Full combat encounter loop
+- [ ] Player can cast spells
 
 ## Technical aspects
 
