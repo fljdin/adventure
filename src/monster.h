@@ -15,6 +15,7 @@ struct monster_stats
 {
     char const *name;
     unsigned health;
+    unsigned strength;
     unsigned dexterity;
     struct dice_range const *weapons;
     unsigned weapon_count;

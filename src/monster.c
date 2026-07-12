@@ -5,11 +5,13 @@ struct monster_stats const monster_table[] = {
     [MONSTER_RAT] = {
         .name = "Rat",
         .health = 4,
+        .strength = 0,
         .dexterity = 12,
     },
     [MONSTER_GOBLIN] = {
         .name = "Goblin",
         .health = 10,
+        .strength = 1,
         .dexterity = 14,
         .weapons = (struct dice_range[]){
             {61, 85, ITEM_CLUB},
@@ -24,6 +26,7 @@ struct monster_stats const monster_table[] = {
     [MONSTER_GUARD] = {
         .name = "Guard",
         .health = 15,
+        .strength = 3,
         .dexterity = 12,
         .weapons = (struct dice_range[]){
             {1, 100, ITEM_SHORT_SWORD},
@@ -37,6 +40,7 @@ struct monster_stats const monster_table[] = {
     [MONSTER_BOSS] = {
         .name = "Warden",
         .health = 35,
+        .strength = 5,
         .dexterity = 10,
         .armors = (struct dice_range[]){
             {1, 100, ITEM_SCALE_MAIL},
@@ -48,7 +52,7 @@ struct monster_stats const monster_table[] = {
 void monster_spawn_with_func(struct entity *entity, enum monster_type type, dice_func_t dice_func)
 {
     struct monster_stats const *m = &monster_table[type];
-    entity_init(entity, m->name, m->health, 0, m->dexterity);
+    entity_init(entity, m->name, m->health, m->strength, m->dexterity);
 
     struct dice d100 = { .count = 1, .faces = 100, .bonus = 0 };
 
