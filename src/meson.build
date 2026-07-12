@@ -6,6 +6,7 @@ core = files(
     'entity.c',
     'combat.c',
     'item.c',
+    'monster.c',
 )
 
 sources = main + core
