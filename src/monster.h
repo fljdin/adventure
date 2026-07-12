@@ -11,22 +11,15 @@ enum monster_type
     MONSTER_BOSS,
 };
 
-struct monster_equip_range
-{
-    unsigned low;
-    unsigned high;
-    enum item_kind kind;
-};
-
 struct monster_stats
 {
     char const *name;
     unsigned health;
     struct dice damage;
     unsigned dexterity;
-    struct monster_equip_range const *weapons;
+    struct dice_range const *weapons;
     unsigned weapon_count;
-    struct monster_equip_range const *armors;
+    struct dice_range const *armors;
     unsigned armor_count;
 };
 

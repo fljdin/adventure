@@ -13,12 +13,12 @@ struct monster_stats const monster_table[] = {
         .health = 10,
         .damage = {1, 6, 1},
         .dexterity = 14,
-        .weapons = (struct monster_equip_range[]){
+        .weapons = (struct dice_range[]){
             {61, 85, ITEM_CLUB},
             {86, 100, ITEM_SHORT_SWORD},
         },
         .weapon_count = 2,
-        .armors = (struct monster_equip_range[]){
+        .armors = (struct dice_range[]){
             {91, 100, ITEM_LEATHER_ARMOR},
         },
         .armor_count = 1,
@@ -28,11 +28,11 @@ struct monster_stats const monster_table[] = {
         .health = 15,
         .damage = {1, 8, 2},
         .dexterity = 12,
-        .weapons = (struct monster_equip_range[]){
+        .weapons = (struct dice_range[]){
             {1, 100, ITEM_SHORT_SWORD},
         },
         .weapon_count = 1,
-        .armors = (struct monster_equip_range[]){
+        .armors = (struct dice_range[]){
             {1, 80, ITEM_CHAIN_SHIRT},
         },
         .armor_count = 1,
@@ -42,7 +42,7 @@ struct monster_stats const monster_table[] = {
         .health = 35,
         .damage = {1, 10, 5},
         .dexterity = 10,
-        .armors = (struct monster_equip_range[]){
+        .armors = (struct dice_range[]){
             {1, 100, ITEM_SCALE_MAIL},
         },
         .armor_count = 1,
@@ -57,24 +57,14 @@ void monster_spawn_with_func(struct entity *entity, enum monster_type type, dice
     struct dice d100 = { .count = 1, .faces = 100, .bonus = 0 };
 
     unsigned roll = dice_roll_with_func(&d100, dice_func);
-    for (unsigned i = 0; i < m->weapon_count; i++)
-    {
-        if (roll >= m->weapons[i].low && roll <= m->weapons[i].high)
-        {
-            entity_set_weapon(entity, item_create(m->weapons[i].kind));
-            break;
-        }
-    }
+    int val = dice_range_lookup(roll, m->weapons, m->weapon_count);
+    if (val >= 0)
+        entity_set_weapon(entity, item_create((enum item_kind)val));
 
     roll = dice_roll_with_func(&d100, dice_func);
-    for (unsigned i = 0; i < m->armor_count; i++)
-    {
-        if (roll >= m->armors[i].low && roll <= m->armors[i].high)
-        {
-            entity_set_armor(entity, item_create(m->armors[i].kind));
-            break;
-        }
-    }
+    val = dice_range_lookup(roll, m->armors, m->armor_count);
+    if (val >= 0)
+        entity_set_armor(entity, item_create((enum item_kind)val));
 }
 
 void monster_spawn(struct entity *entity, enum monster_type type)

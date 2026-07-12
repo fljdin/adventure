@@ -29,3 +29,29 @@ void test_dice_roll_1d100_minus_50(void)
 
     TEST_ASSERT_EQUAL_INT(50, result);
 }
+
+void test_dice_range_lookup_matches_correct_range(void)
+{
+    struct dice_range ranges[] = {
+        {1, 25, 10},
+        {26, 75, 20},
+        {76, 100, 30},
+    };
+
+    TEST_ASSERT_EQUAL_INT(10, dice_range_lookup(1, ranges, 3));
+    TEST_ASSERT_EQUAL_INT(20, dice_range_lookup(50, ranges, 3));
+    TEST_ASSERT_EQUAL_INT(30, dice_range_lookup(100, ranges, 3));
+}
+
+void test_dice_range_lookup_returns_negative_on_miss(void)
+{
+    struct dice_range ranges[] = {{10, 20, 99}};
+
+    TEST_ASSERT(dice_range_lookup(5, ranges, 1) < 0);
+    TEST_ASSERT(dice_range_lookup(25, ranges, 1) < 0);
+}
+
+void test_dice_range_lookup_empty_table(void)
+{
+    TEST_ASSERT(dice_range_lookup(50, NULL, 0) < 0);
+}
