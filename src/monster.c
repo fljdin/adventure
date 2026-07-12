@@ -5,13 +5,11 @@ struct monster_stats const monster_table[] = {
     [MONSTER_RAT] = {
         .name = "Rat",
         .health = 4,
-        .damage = {1, 3, 1},
         .dexterity = 12,
     },
     [MONSTER_GOBLIN] = {
         .name = "Goblin",
         .health = 10,
-        .damage = {1, 6, 1},
         .dexterity = 14,
         .weapons = (struct dice_range[]){
             {61, 85, ITEM_CLUB},
@@ -26,7 +24,6 @@ struct monster_stats const monster_table[] = {
     [MONSTER_GUARD] = {
         .name = "Guard",
         .health = 15,
-        .damage = {1, 8, 2},
         .dexterity = 12,
         .weapons = (struct dice_range[]){
             {1, 100, ITEM_SHORT_SWORD},
@@ -40,7 +37,6 @@ struct monster_stats const monster_table[] = {
     [MONSTER_BOSS] = {
         .name = "Warden",
         .health = 35,
-        .damage = {1, 10, 5},
         .dexterity = 10,
         .armors = (struct dice_range[]){
             {1, 100, ITEM_SCALE_MAIL},
