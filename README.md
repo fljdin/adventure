@@ -4,26 +4,24 @@ Adventure is a test-driven linear dungeon crawler side project written in C.
 
 ## Gameplay
 
-Player starts in a room. Each action is textually described, and the player can
-choose which one to take. Combat shows the participant's health, and the player
-can choose to attack, cast a sortilege, use an item, or flee.
+Player starts in a room. Combat is turn-based with an ncurses interface showing
+HP bars, a combat log, and an action menu (attack, inventory, etc.).
 
 ## Features
 
-- [x] The dungeon is a succession of rooms connected by doors
-- [x] Player has armor and weapon slots (equip/unequip pending)
+- [x] ncurses UI (window, layout, HP bars, combat log, action menu)
+- [x] Full combat encounter loop with turn-based attacks
+- [x] Player has armor and weapon slots (equip/unequip)
 - [x] Player can pick up items, such as health potions
-- [x] Player can attack in turn-based combat
-  - [x] Player has a health bar
-  - [x] Armor reduces incoming damage
-  - [ ] Full combat encounter loop
+- [x] Armor reduces incoming damage
+- [x] Dungeon is a succession of rooms connected by doors
 - [ ] Player can cast spells
+- [ ] Title screen and game over screen
 
 ## Technical aspects
 
-This project is written in C, and uses the [Unity] testing framework. As the
-game is text-based, it runs entirely in a terminal. The [ncurses] library is used
-to provide an interactive interface.
+This project is written in C and follows TDD with the [Unity] testing framework.
+The [ncurses] library provides a terminal-based interactive interface.
 
 [Unity]: https://www.throwtheswitch.org/unity
 [ncurses]: https://invisible-island.net/ncurses/
