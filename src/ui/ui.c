@@ -10,9 +10,9 @@ void ui_init(void)
     curs_set(0);
 }
 
-WINDOW *ui_window(int origin_y, int origin_x)
+WINDOW *ui_window(struct layout const *l)
 {
-    WINDOW *game = newwin(BOX_H, BOX_W, origin_y, origin_x);
+    WINDOW *game = newwin(BOX_H, BOX_W, l->oy, l->ox);
     keypad(game, TRUE);
     return game;
 }

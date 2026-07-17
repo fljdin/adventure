@@ -8,12 +8,9 @@ int main(void)
     int term_rows, term_cols;
     getmaxyx(stdscr, term_rows, term_cols);
 
-    int oy = (term_rows - BOX_H) / 2;
-    int ox = (term_cols - BOX_W) / 2;
-    if (oy < 0) oy = 0;
-    if (ox < 0) ox = 0;
+    struct layout ly = layout_make(term_rows, term_cols);
 
-    WINDOW *game = ui_window(oy, ox);
+    WINDOW *game = ui_window(&ly);
 
     werase(game);
     box(game, 0, 0);
