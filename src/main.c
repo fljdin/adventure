@@ -1,6 +1,7 @@
 #include "ui/ui.h"
 #include "ui/log.h"
 #include "ui/bar.h"
+#include "ui/menu.h"
 #include <curses.h>
 
 int main(void)
@@ -27,13 +28,26 @@ int main(void)
     draw_separator(game, ly.sep1_y, BOX_W);
     log_draw(&log, game, ly.log_y, BOX_W, LOG_LINES);
     draw_separator(game, ly.sep2_y, BOX_W);
-    mvwprintw(game, BOX_H - 2, 2, "ESC quitter");
+    struct menu menu;
+    menu_init(&menu);
+    menu_add(&menu, "Attaquer");
+    menu_add(&menu, "Inventaire");
 
     wnoutrefresh(game);
     doupdate();
 
-    int key;
-    do { key = wgetch(game); } while (key != 27);
+    int sel;
+    do
+    {
+        sel = menu_run(&menu, game, 2, ly.menu_y);
+        if (sel >= 0)
+        {
+            log_add(&log, "%s", menu.items[sel].label);
+            log_draw(&log, game, ly.log_y, BOX_W, LOG_LINES);
+            wnoutrefresh(game);
+            doupdate();
+        }
+    } while (sel >= 0);
 
     ui_teardown(game);
     return 0;
