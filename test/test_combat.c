@@ -26,7 +26,7 @@ void setUp(void)
 
 void test_attack_hit_deals_damage(void)
 {
-    struct item sword = { .name = "Sword", .weight = 3, .type = ITEM_WEAPON, .damage = {1, 4, 0} };
+    struct item sword = { .name = "Sword", .weight = 3, .category = WEARABLE, .type = WEARABLE_WEAPON, .damage = {1, 4, 0} };
     entity_set_weapon(&player, sword);
     entity_attack_with_func(&player, &monster, always);
     TEST_ASSERT_EQUAL_UINT(16, monster.health);
@@ -35,7 +35,7 @@ void test_attack_hit_deals_damage(void)
 void test_attack_miss_when_dex_too_low(void)
 {
     entity_init(&player, "Clumsy", 30, 1, 1);
-    struct item sword = { .name = "Sword", .weight = 3, .type = ITEM_WEAPON, .damage = {1, 4, 0} };
+    struct item sword = { .name = "Sword", .weight = 3, .category = WEARABLE, .type = WEARABLE_WEAPON, .damage = {1, 4, 0} };
     entity_set_weapon(&player, sword);
     entity_attack_with_func(&player, &monster, always);
     TEST_ASSERT_EQUAL_UINT(20, monster.health);
@@ -43,7 +43,7 @@ void test_attack_miss_when_dex_too_low(void)
 
 void test_critical_hit_deals_double_damage(void)
 {
-    struct item knife = { .name = "Knife", .weight = 1, .type = ITEM_WEAPON, .damage = {1, 1, 0} };
+    struct item knife = { .name = "Knife", .weight = 1, .category = WEARABLE, .type = WEARABLE_WEAPON, .damage = {1, 1, 0} };
     entity_set_weapon(&player, knife);
     entity_attack_with_func(&player, &monster, always_max);
     TEST_ASSERT_EQUAL_UINT(12, monster.health);
