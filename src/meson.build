@@ -8,5 +8,8 @@ core = files(
     'item.c',
     'monster.c',
 )
+ui = files(
+    'ui/ui.c',
+)
 
-sources = main + core
+sources = main + core + ui
