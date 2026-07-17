@@ -4,6 +4,7 @@
 #define BOX_H      22
 #define LOG_BUF    64
 #define LOG_LINES  13
+#define BAR_W      10
 
 struct layout
 {
