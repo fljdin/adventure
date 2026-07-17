@@ -1,16 +1,16 @@
 #include "combat.h"
 
-void entity_attack_with_func(struct entity *attacker, struct entity *defender, dice_func_t dice_func)
+unsigned entity_attack_with_func(struct entity *attacker, struct entity *defender, dice_func_t dice_func)
 {
     if (!attacker || !defender || !dice_func)
-        return;
+        return 0;
 
     struct dice accuracy = { .count = 1, .faces = 20, .bonus = 0 };
     unsigned roll = dice_roll_with_func(&accuracy, dice_func);
     unsigned accuracy_total = roll + attacker->dexterity;
 
     if (accuracy_total < 10)
-        return;
+        return 0;
 
     unsigned damage = attacker->strength;
 
@@ -20,12 +20,12 @@ void entity_attack_with_func(struct entity *attacker, struct entity *defender, d
     if (roll == 20)
         damage *= 2;
 
-    entity_take_damage(defender, damage);
+    return entity_take_damage(defender, damage);
 }
 
-void entity_attack(struct entity *attacker, struct entity *defender)
+unsigned entity_attack(struct entity *attacker, struct entity *defender)
 {
-    entity_attack_with_func(attacker, defender, dice_random);
+    return entity_attack_with_func(attacker, defender, dice_random);
 }
 
 int combat_turn_order(struct entity const *a, struct entity const *b)

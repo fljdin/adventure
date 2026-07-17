@@ -20,7 +20,7 @@ void entity_init(
     unsigned hp, unsigned str, unsigned dex
 );
 void entity_destroy(struct entity *entity);
-void entity_take_damage(struct entity *entity, unsigned const damage);
+unsigned entity_take_damage(struct entity *entity, unsigned const damage);
 void entity_heal(struct entity *entity, unsigned const amount);
 void entity_set_weapon(struct entity *entity, struct item const item);
 void entity_set_armor(struct entity *entity, struct item const item);

@@ -59,13 +59,13 @@ int main(void)
 
         if (sel == 0)
         {
-            entity_attack(&player, &monster);
-            log_add(&log, "Vous attaquez le %s !", monster.name);
+            unsigned dmg = entity_attack(&player, &monster);
+            log_add(&log, "Vous attaquez le %s (%u degats)", monster.name, dmg);
 
             if (monster.health > 0)
             {
-                entity_attack(&monster, &player);
-                log_add(&log, "Le %s vous attaque !", monster.name);
+                dmg = entity_attack(&monster, &player);
+                log_add(&log, "Le %s vous attaque (%u degats)", monster.name, dmg);
             }
         }
         else if (sel == 1)

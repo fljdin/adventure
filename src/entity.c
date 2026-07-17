@@ -28,18 +28,18 @@ void entity_destroy(struct entity *entity)
     memset(entity, 0, sizeof(struct entity));
 }
 
-void entity_take_damage(struct entity *entity, unsigned const damage)
+unsigned entity_take_damage(struct entity *entity, unsigned const damage)
 {
-    if (!entity) return;
+    if (!entity) return 0;
     unsigned effective = damage;
     if (entity->has_armor && entity->armor.protection > 0)
         effective = damage > entity->armor.protection
                   ? damage - entity->armor.protection
                   : 0;
     if (entity->health < effective)
-        entity->health = 0;
-    else
-        entity->health -= effective;
+        effective = entity->health;
+    entity->health -= effective;
+    return effective;
 }
 
 void entity_set_weapon(struct entity *entity, struct item const item)
