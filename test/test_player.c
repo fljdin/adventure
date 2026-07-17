@@ -65,3 +65,74 @@ void test_entity_inventory_is_overloaded(void)
     is_overloaded = entity_is_inventory_overloaded(&player);
     TEST_ASSERT(is_overloaded);
 }
+
+void test_equip_weapon(void)
+{
+    struct item sword = item_create(ITEM_RUSTY_SWORD);
+    inventory_add_item(&player.inventory, sword);
+    TEST_ASSERT(entity_equip(&player, 0));
+    TEST_ASSERT(player.has_weapon);
+    TEST_ASSERT_EQUAL_STRING("Rusty Sword", player.weapon.name);
+    TEST_ASSERT_EQUAL_UINT(0, player.inventory.count);
+}
+
+void test_equip_armor(void)
+{
+    struct item armor = item_create(ITEM_LEATHER_ARMOR);
+    inventory_add_item(&player.inventory, armor);
+    TEST_ASSERT(entity_equip(&player, 0));
+    TEST_ASSERT(player.has_armor);
+    TEST_ASSERT_EQUAL_UINT(1, player.armor.protection);
+    TEST_ASSERT_EQUAL_UINT(0, player.inventory.count);
+}
+
+void test_equip_replaces_weapon(void)
+{
+    struct item sword = item_create(ITEM_RUSTY_SWORD);
+    entity_set_weapon(&player, sword);
+    struct item club = item_create(ITEM_CLUB);
+    inventory_add_item(&player.inventory, club);
+
+    TEST_ASSERT(entity_equip(&player, 0));
+    TEST_ASSERT_EQUAL_STRING("Club", player.weapon.name);
+    TEST_ASSERT_EQUAL_UINT(1, player.inventory.count);
+    TEST_ASSERT_EQUAL_STRING("Rusty Sword", player.inventory.items[0].name);
+}
+
+void test_equip_wrong_type(void)
+{
+    struct item potion = item_create(ITEM_HEAL_POTION);
+    inventory_add_item(&player.inventory, potion);
+    TEST_ASSERT(!entity_equip(&player, 0));
+    TEST_ASSERT_EQUAL_UINT(1, player.inventory.count);
+}
+
+void test_equip_out_of_bounds(void)
+{
+    TEST_ASSERT(!entity_equip(&player, 0));
+}
+
+void test_unequip_weapon(void)
+{
+    struct item sword = item_create(ITEM_RUSTY_SWORD);
+    entity_set_weapon(&player, sword);
+    TEST_ASSERT(entity_unequip(&player, SLOT_WEAPON));
+    TEST_ASSERT(!player.has_weapon);
+    TEST_ASSERT_EQUAL_UINT(1, player.inventory.count);
+    TEST_ASSERT_EQUAL_STRING("Rusty Sword", player.inventory.items[0].name);
+}
+
+void test_unequip_armor(void)
+{
+    struct item armor = item_create(ITEM_LEATHER_ARMOR);
+    entity_set_armor(&player, armor);
+    TEST_ASSERT(entity_unequip(&player, SLOT_ARMOR));
+    TEST_ASSERT(!player.has_armor);
+    TEST_ASSERT_EQUAL_UINT(1, player.inventory.count);
+}
+
+void test_unequip_empty_slot(void)
+{
+    TEST_ASSERT(entity_unequip(&player, SLOT_WEAPON));
+    TEST_ASSERT(!player.has_weapon);
+}

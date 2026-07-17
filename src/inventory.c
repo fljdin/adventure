@@ -33,17 +33,22 @@ bool inventory_remove_item(struct inventory *inv, unsigned const index)
 {
     if (!inv || index >= inv->count) return false;
 
-    // shift remaining items beyond index to the left
     for (unsigned i = index; i < inv->count - 1; i++)
-    {
         inv->items[i] = inv->items[i + 1];
-    }
 
-    struct item *items = realloc(inv->items, (inv->count - 1) * sizeof(struct item));
-    if (!items) return false;
-
-    inv->items = items;
     inv->count -= 1;
+
+    if (inv->count == 0)
+    {
+        free(inv->items);
+        inv->items = NULL;
+    }
+    else
+    {
+        struct item *items = realloc(inv->items, inv->count * sizeof(struct item));
+        if (!items) return false;
+        inv->items = items;
+    }
     return true;
 }
 

@@ -56,6 +56,57 @@ void entity_set_armor(struct entity *entity, struct item const item)
     entity->has_armor = true;
 }
 
+bool entity_equip(struct entity *entity, unsigned inventory_index)
+{
+    if (!entity || inventory_index >= entity->inventory.count)
+        return false;
+
+    struct item item = entity->inventory.items[inventory_index];
+
+    switch (item.type)
+    {
+    case WEARABLE_WEAPON:
+        if (entity->has_weapon)
+            inventory_add_item(&entity->inventory, entity->weapon);
+        entity_set_weapon(entity, item);
+        break;
+    case WEARABLE_ARMOR:
+        if (entity->has_armor)
+            inventory_add_item(&entity->inventory, entity->armor);
+        entity_set_armor(entity, item);
+        break;
+    default:
+        return false;
+    }
+
+    inventory_remove_item(&entity->inventory, inventory_index);
+    return true;
+}
+
+bool entity_unequip(struct entity *entity, enum entity_slot_type slot)
+{
+    if (!entity)
+        return false;
+
+    switch (slot)
+    {
+    case SLOT_WEAPON:
+        if (!entity->has_weapon)
+            return true;
+        inventory_add_item(&entity->inventory, entity->weapon);
+        entity->has_weapon = false;
+        return true;
+    case SLOT_ARMOR:
+        if (!entity->has_armor)
+            return true;
+        inventory_add_item(&entity->inventory, entity->armor);
+        entity->has_armor = false;
+        return true;
+    default:
+        return false;
+    }
+}
+
 void entity_heal(struct entity *entity, unsigned const amount)
 {
     if (!entity) return;

@@ -25,5 +25,14 @@ void entity_heal(struct entity *entity, unsigned const amount);
 void entity_set_weapon(struct entity *entity, struct item const item);
 void entity_set_armor(struct entity *entity, struct item const item);
 
+enum entity_slot_type
+{
+    SLOT_WEAPON = WEARABLE_WEAPON,
+    SLOT_ARMOR  = WEARABLE_ARMOR,
+};
+
+bool entity_equip(struct entity *entity, unsigned inventory_index);
+bool entity_unequip(struct entity *entity, enum entity_slot_type slot);
+
 unsigned entity_max_capacity(struct entity const *entity);
 bool entity_is_inventory_overloaded(struct entity const *entity);
