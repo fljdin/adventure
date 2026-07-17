@@ -1,7 +1,9 @@
 #pragma once
 
-#define BOX_W  60
-#define BOX_H  22
+#define BOX_W      60
+#define BOX_H      22
+#define LOG_BUF    64
+#define LOG_LINES  13
 
 struct layout
 {

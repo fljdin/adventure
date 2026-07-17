@@ -11,6 +11,7 @@ core = files(
 ui = files(
     'ui/ui.c',
     'ui/layout.c',
+    'ui/log.c',
 )
 
 sources = main + core + ui
